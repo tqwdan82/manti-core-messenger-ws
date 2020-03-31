@@ -1,0 +1,14 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit Operation: <%- application -%>.<%- service -%>.<%- operation -%></h1>
+</div>
+
+<div ng-app="opEditorApp" ng-controller="opEditorCtrl" 
+  ng-init="application='<%- application -%>';
+  service='<%- service -%>';
+  operation='<%- operation -%>';
+  init();"
+>
+  <div id="editor" style="width:100%;height:calc(100vh - (4.375rem + 245px));"></div>
+  <button type="button" class="btn btn-primary" ng-click="saveOperation()">Save</button>
+</div>

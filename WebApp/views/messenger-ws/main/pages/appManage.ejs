@@ -1,0 +1,143 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Manage Applications & Services</h1>
+</div>
+
+<div ng-app="svcViewApp" ng-controller="svcViewCtrl">
+  <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newAppModal">New Application</button></p>
+  <!-- Service section -->
+  <div class="card-body" ng-if="!hasAppServices">
+    <p class="text-center">No Applications found</p>
+  </div>
+  <div class="col-lg-12" ng-if="hasAppServices">
+    <!-- repeat -->
+    <div class="card shadow mb-4" ng-repeat="appSvc in appServices">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">{{appSvc.app}}</h6>
+      </div>
+      
+      <div class="card-body">
+        <p ng-show="appSvc.app == 'resource'">
+          This application is for managed resources. Remove managed services by either deleting the model or delete via APIs > Manage Resource API
+        </p>
+        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" >
+          <thead>
+            <tr>
+              <th>Services</th>
+              <th>Operations</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Services</th>
+              <th>Operations</th>
+              <th></th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr ng-show="appSvc.services.length == 0">
+              <td colspan=3>
+                <p>
+                  - No Services -
+                </p>
+              </td>
+            </tr>
+            <tr ng-repeat="service in appSvc.services" ng-show="appSvc.services.length > 0">
+              <td>{{service.serviceName}}</td>
+              <td ng-show="appSvc.services.length > 0">
+                <p ng-repeat="operation in service.operations" >
+                  {{operation}}
+                </p>
+              </td>
+              <td ng-show="appSvc.services.length == 0">
+                <p>
+                  - No Operations -
+                </p>
+              </td>
+              <td>
+                <a ng-show="appSvc.app != 'resource'" href="#" class="btn btn-danger btn-icon-split btn-sm" ng-click="deleteService(appSvc.app, service.serviceName)">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                  <span class="text">Delete Service</span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <a ng-show="appSvc.app != 'resource'" href="#" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#newServiceModal" ng-click="setNewServiceApp(appSvc.app)">
+          <span class="icon text-white-50">
+            <i class="fas fa-file"></i>
+          </span>
+          <span class="text">New Service</span>
+        </a>
+        <a ng-show="appSvc.app != 'resource'" href="#" class="btn btn-danger btn-icon-split btn-sm" ng-click="deleteApplication(appSvc.app)">
+          <span class="icon text-white-50">
+            <i class="fas fa-trash"></i>
+          </span>
+          <span class="text">Delete Application</span>
+        </a>
+      </div>
+    </div> 
+
+  </div>
+  <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newAppModal">New Application</button></p>
+
+  <!-- new Application Modal -->
+  <div class="modal fade" id="newAppModal" tabindex="-1" role="dialog" aria-labelledby="newAppModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newAppModalTitle">New Application</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group col-lg-12">
+                  <label>Application Name(min 3 char) *</label>
+                  <input class="form-control" name="newAppName" ng-model="newAppName" placeholder="Your Application Name">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="createNewApplication()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- new Service Modal -->
+  <div class="modal fade" id="newServiceModal" tabindex="-1" role="dialog" aria-labelledby="newServiceModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newServiceModalTitle">New Service</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group col-lg-12">
+                  <label>Service Name(min 3 char) *</label>
+                  <input class="form-control" name="newSvcName" ng-model="newSvcName" placeholder="Your Service Name">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="createNewService()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

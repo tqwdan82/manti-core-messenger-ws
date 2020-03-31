@@ -1,0 +1,93 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Manage Service Operation</h1>
+</div>
+
+<div ng-app="opApp" ng-controller="opAppCtrl">
+  <div class="btn-group dropright">
+    <div class="dropdown dropright">
+      <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="serviceDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select Application
+      </a>
+      <div class="dropdown-menu" aria-labelledby="serviceDropdown">
+        <a ng-show="!hasAppServices" class="dropdown-item">- No Application -</a>
+        <a ng-show="hasAppServices" ng-repeat="application in appServices" class="dropdown-item" href="#" ng-click="showService(application.app)">{{application.app}}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4" ng-show="selectedApplication != '' ">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Application: {{selectedApplication}}</h6>
+    </div>
+    <div class="card-body">
+      <div class="card shadow mb-4" ng-repeat="service in services">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Service: {{service.serviceName}}</h6>
+        </div>
+        <div class="card-body">
+          <p>
+            <a href="./main?parent=Service&actionName=New Operations&action=newOpEditor&application={{selectedApplication}}&service={{service.serviceName}}" class="btn btn-primary btn-icon-split btn-sm">
+              <span class="icon text-white-50">
+                <i class="fas fa-file"></i>
+              </span>
+              <span class="text">New Operation</span>
+            </a>
+          </p>
+          <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" >
+            <thead>
+              <tr>
+                <th>Operations</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Operations</th>
+                <th></th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr ng-show="service.operations.length == 0">
+                <td colspan=2>
+                  <p>
+                    - No Operations-
+                  </p>
+                </td>
+              </tr>
+              <tr ng-show="service.operations.length > 0" ng-repeat="operation in service.operations">
+                <td>
+                  {{operation}}
+                </td>
+                <td>
+                  <a href="./main?parent=Service&actionName=Edit Operations&action=opEditor&application={{selectedApplication}}&service={{service.serviceName}}&operation={{operation}}" class="btn btn-primary btn-icon-split btn-sm">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Edit</span>
+                  </a>
+                  <a href="#" class="btn btn-danger btn-icon-split btn-sm" ng-click="deleteOperation(selectedApplication, service.serviceName, operation)">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Delete</span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            <a href="./main?parent=Service&actionName=New Operations&action=newOpEditor&application={{selectedApplication}}&service={{service.serviceName}}" class="btn btn-primary btn-icon-split btn-sm">
+              <span class="icon text-white-50">
+                <i class="fas fa-file"></i>
+              </span>
+              <span class="text">New Operation</span>
+            </a>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>

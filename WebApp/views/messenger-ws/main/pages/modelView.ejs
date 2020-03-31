@@ -1,0 +1,82 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">View Models</h1>
+</div>
+
+<!-- DataTables Example -->
+<div class="card shadow mb-4" ng-app="dataModelViewApp" ng-controller="dataModelViewCtrl">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Data Models</h6>
+  </div>
+<div class="card-body">
+  <div class="table-responsive">
+    <!-- <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="dataTables_length" id="dataTable_length">
+            <label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select> entries
+            </label>
+          </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div id="dataTable_filter" class="dataTables_filter">
+          <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
+          </label>
+        </div>
+      </div>
+    </div> -->
+    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" >
+      <thead>
+        <tr>
+          <th>Model Name</th>
+          <th>Attributes</th>
+          <th>Configurations</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Model Name</th>
+          <th>Attributes</th>
+          <th>Configurations</th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr ng-repeat="(key, value) in models">
+          <td>{{key}}</td>
+          <td>
+            <p ng-repeat="attribute in value.attributes">
+              <span ng-repeat="(akey, avalue) in attribute">
+                <!-- {{akey}} -> {{avalue}} ({{akey === 'Attribute Name'}})<br/> -->
+                <b ng-if="akey==='Attribute Name'">{{avalue}}<br/></b>
+                <span ng-if="akey!=='Attribute Name'">{{akey}} : {{avalue}}<br/></span>
+              </span>
+            </p>
+          </td>
+          <td>
+            <p ng-repeat="(ckey, cvalue) in value.configurations">
+              <span>{{ckey}} : {{cvalue}}</span>
+            </p>
+          </td>
+          <td>
+            <!-- <button ng-click="edit()">Edit</button> -->
+            <!-- <button ng-click="delete(key)">Delete</button> -->
+            <a href="#" class="btn btn-danger btn-icon-split btn-sm"  ng-click="delete(key)">
+              <span class="icon text-white-50">
+                <i class="fas fa-trash"></i>
+              </span>
+              <span class="text">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer small text-muted"></div>
+</div>

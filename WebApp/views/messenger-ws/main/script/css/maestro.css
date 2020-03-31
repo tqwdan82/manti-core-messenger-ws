@@ -1,0 +1,59 @@
+.api-get-label{
+    color: #004085;
+    width: 100px;
+    background-color: #cce5ff !important;
+    border-color: #b8daff;
+    font-weight: bold;
+    display: block;
+}
+
+.api-get-uri{
+    color: #004085;
+    background-color: #ecf5ff !important;
+    border-color: #b8daff;
+}
+
+.api-post-label{
+    color: #155724;
+    width: 100px;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb;
+    font-weight: bold;
+    display: block;
+}
+
+.api-post-uri{
+    color: #155724;
+    background-color: #eff5f0 !important;
+    border-color: #c3e6cb;
+}
+
+.api-delete-label{
+    color: #721c24;
+    width: 100px;
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb;
+    font-weight: bold;
+    display: block;
+}
+
+.api-delete-uri{
+    color: #721c24;
+    background-color: #fff0f2 !important;
+    border-color: #f5c6cb;
+}
+
+.api-put-label{
+    color: #856404;
+    width: 100px;
+    background-color: #fff3cd !important;
+    border-color: #ffeeba;
+    font-weight: bold;
+    display: block;
+}
+
+.api-put-uri{
+    color: #856404;
+    background-color: #fffaeb !important;
+    border-color: #ffeeba;
+}

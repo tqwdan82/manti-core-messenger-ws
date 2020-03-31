@@ -1,0 +1,18 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">New Operation</h1>
+</div>
+
+<div ng-app="opEditorApp" ng-controller="opEditorCtrl" 
+  ng-init="application='<%- application -%>';
+  service='<%- service -%>';
+  init();"
+>
+<div class="row">
+  <div class="form-group col-lg-12">
+    <%- application -%>.<%- service -%>.<input class="form-control" name="operation" ng-model="operation" placeholder="New Operation Name">
+  </div>
+</div>
+  <div id="editor" style="width:100%;height:calc(100vh - (4.375rem + 285px));"></div>
+  <button type="button" class="btn btn-primary" ng-click="saveOperation()">Save</button>
+</div>

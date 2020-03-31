@@ -1,0 +1,11 @@
+<!-- Breadcrumbs-->
+<% if(typeof parent !== 'undefined') { %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#"><%= parent %></a>
+    </li>
+    <% if(typeof actionName !== 'undefined') { %>
+    <li class="breadcrumb-item active"><%= actionName %></li>
+    <% } %>
+  </ol>
+  <% } %>

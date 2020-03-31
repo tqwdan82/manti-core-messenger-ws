@@ -1,0 +1,61 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Manage Resource API</h1>
+</div>
+
+<!-- DataTables Example -->
+<div class="card shadow mb-4" ng-app="apiResNewApp" ng-controller="apiResNewCtrl">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">All Resource APIs</h6>
+  </div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" >
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Model</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr ng-repeat="model in allModels">
+          <td>{{model.model}}</td>
+          <td ng-if="model.generated"> <span class="badge badge-success">API Generated</span> </td>
+          <td ng-if="!model.generated"> <span class="badge badge-secondary">API Not Generated</span></td>
+          <td ng-if="model.generated">
+            <a href="#" class="btn btn-primary btn-icon-split btn-sm"  ng-click="generate(model.model)">
+              <span class="icon text-white-50">
+                <i class="fas fa-redo-alt"></i>
+              </span>
+              <span class="text">Re-Generate</span>
+            </a>
+            <a href="#" class="btn btn-danger btn-icon-split btn-sm"  ng-click="delete(model.model)">
+              <span class="icon text-white-50">
+                <i class="fas fa-trash"></i>
+              </span>
+              <span class="text">Delete</span>
+            </a>
+          </td>
+          <td ng-if="!model.generated">
+            <a href="#" class="btn btn-primary btn-icon-split btn-sm"  ng-click="generate(model.model)">
+              <span class="icon text-white-50">
+                <i class="fas fa-pencil-alt"></i>
+              </span>
+              <span class="text">Generate</span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-footer small text-muted"></div>
+</div>

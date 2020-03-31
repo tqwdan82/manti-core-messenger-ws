@@ -1,0 +1,232 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">New Model</h1>
+</div>
+<div class="row" ng-app="dataModelNewApp" ng-controller="dataModelNewCtrl">
+  <div class="col-lg-12">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">New Model Description</h6>
+      </div>
+      <div class="card-body">
+        <form role="form" method="GET" action="">
+          <div class="row">
+            <div class="form-group col-lg-12">
+                <label>Model Name(min 3 char) *</label>
+                <input class="form-control" name="modelName" ng-model="modelName">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <label>Enable Timestamp *</label>
+              <input type="radio" id="tsRadio_yes" name="tsRadios" value="true" ng-model="enableTimeStamp">
+              <label for="tsRadio_yes">Yes</label>
+              <input type="radio" id="tsRadio_no" name="tsRadios" value="false" checked ng-model="enableTimeStamp">
+              <label for="tsRadio_no">No</label>
+            </div>
+            <div class="form-group col-lg-6">
+              <label>Enable Logical Delete *</label>
+              <input type="radio" id="ldRadio_yes" name="ldRadios" value="true" ng-model="enableLogDel">
+              <label for="ldRadio_yes">Yes</label>
+              <input type="radio" id="ldRadio_no" name="ldRadios" value="false" checked ng-model="enableLogDel">
+              <label for="ldRadio_no">No</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="table-responsive">
+                <label>Attributes</label>
+                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" >
+                  <thead>
+                    <tr>
+                      <th>Attribute Name</th>
+                      <th>Configurations</th>
+                      <th>
+                        <a href="#" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#newModelModal">
+                          <i class="fas fa-plus"></i>
+                        </a>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Attribute Name</th>
+                      <th>Configurations</th>
+                      <th>
+                        <a href="#" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#newModelModal">
+                          <i class="fas fa-plus"></i>
+                        </a>
+                      </th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <tr ng-repeat="(key, value) in modelDetails">
+                      <td>{{key}}</td>
+                      <td>
+                        <p>
+                          <span ng-repeat="(akey, avalue) in value">
+                            {{formatKey(akey)}} : {{formatValue(avalue)}}<br/>
+                          </span>
+                        </p>
+                      </td>
+                      <td>
+                        <a style="color:white;" class="btn btn-danger btn-icon-split btn-sm" ng-click="remove(key)">
+                          <span class="icon text-white-50">
+                            <i class="fas fa-trash"></i>
+                          </span>
+                          <span class="text">Remove</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <label>Generate Data Access Services</label>
+              <input type="radio" id="genDaoRadio_yes" name="genDaoRadios" value="true" ng-model="genDao">
+              <label for="genDaoRadio_yes">Yes</label>
+              <input type="radio" id="genDaoRadio_no" name="genDaoRadios" value="false" checked ng-model="genDao">
+              <label for="genDaoRadio_no">No</label>
+            </div>
+            <div class="form-group col-lg-6">
+              <label>Generate APIs</label>
+              <input type="radio" id="genApiRadio_yes" name="genApiRadios" value="true" ng-model="genApi">
+              <label for="genApiRadio_yes">Yes</label>
+              <input type="radio" id="genApiRadio_no" name="genApiRadios" value="false" checked ng-model="genApi">
+              <label for="genApiRadio_no">No</label>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" ng-click="submit()">Create Model</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate Service Modal -->
+  <div class="modal fade bd-example-modal-lg" id="apiDaoModal" tabindex="-1" role="dialog" aria-labelledby="apiDaoModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="apiDaoModalTitle">API & DAO Generation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span>
+            APIs are dependent on DAO services. If you need to generate APIs for the model, DAO services must be generated too. 
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invalid Model Modal -->
+  <div class="modal fade bd-example-modal-lg" id="invalidModelModal" tabindex="-2" role="dialog" aria-labelledby="invalidModelModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="invalidModelModalTitle">Invalid Model Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span ng-repeat="serror in submitErrors">
+            {{serror}}</br>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invalid Attr Modal -->
+  <div class="modal fade bd-example-modal-sm" id="invalidAttrModal" tabindex="-2" role="dialog" aria-labelledby="invalidAttrModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="invalidAttrModalTitle">Invalid Attribute Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span ng-repeat="error in errors">
+            {{error}}</br>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- new model Modal -->
+  <div class="modal fade" id="newModelModal" tabindex="-1" role="dialog" aria-labelledby="newModelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newModelModalTitle">New Attribute</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <!-- Name and Type -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                  <label>Attribute Name(min 3 char) *</label>
+                  <input class="form-control" name="attrName" ng-model="modelDetail.attrName">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Attribute Type *</label>
+                <!-- <input class="form-control" name="attrType" ng-model="modelDetail.attrType"> -->
+                <div class="input-group col-md-6">
+                  <select class="custom-select" name="attrType" id="attrType" ng-model="modelDetail.attrType">
+                    <option value="string">String</option>
+                    <option value="integer">Integer</option>
+                    <option value="bigint">BigInt</option>
+                    <option value="float">Float</option>
+                    <option value="decimal">Decimal</option>
+                    <option value="date">Date</option>
+                    <option value="dateonly">Date Only</option>
+                    <option value="time">Time</option>
+                    <option value="boolean">Boolean</option>
+                    <option value="blob">Blob</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- size -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                  <label>Attribute Size</label>
+                  <input class="form-control" name="attrSize" ng-model="modelDetail.attrSize">
+              </div>
+            </div>
+
+            <!-- PK -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Primary Key *</label>
+                <input type="radio" id="pkRadio_yes" name="pkRadios" value="true" ng-model="modelDetail.attrPk">
+                <label for="pkRadio_yes">Yes</label>
+                <input type="radio" id="pkRadio_no" name="pkRadios" value="false" checked ng-model="modelDetail.attrPk">
+                <label for="pkRadio_no">No</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="add()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

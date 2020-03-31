@@ -1,0 +1,143 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">View APIs</h1>
+</div>
+
+<div ng-app="apiViewApp" ng-controller="apiViewCtrl">
+  <!-- Resource API section -->
+  <div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Resource</h6>
+    </div>
+    <div class="card-body" ng-if="!hasResourceApis">
+      <p class="text-center">No APIs found</p>
+    </div>
+    <div class="card-body" ng-if="hasResourceApis" ng-repeat="resourceApi in resourceApis">
+      <h5>{{resourceApi.name}}</h5>
+      <p class="text-justify">{{resourceApi.description}}</p>
+      <!-- Text Label Group-->
+      <div ng-repeat="resourceGetApi in resourceApi.get">
+        <div class="input-group mb-3" style="margin-bottom: 0!important;margin-top:1rem;" data-toggle="collapse" href="#{{resourceApi.name}}Section{{$index}}" role="button" aria-expanded="false" >
+          <div class="input-group-prepend">
+            <span class="input-group-text api-get-label" id="inputGroup-sizing-default">GET</span>
+          </div>
+          <input disabled type="text" value="{{resourceGetApi}}" class="form-control api-get-uri" aria-describedby="inputGroup-sizing-default">
+        </div>
+         <!-- Collapsed Section-->
+      <div class="collapse" id="{{resourceApi.name}}Section{{$index}}">
+        <div class="card card-body">
+
+          <form>
+            <!-- Request body -->
+            <div class="form-group">
+              <label for="reqBody">Request Body</label>
+              <textarea class="form-control" id="reqBody" rows="10"></textarea>
+            </div>
+
+            <div class="form-row">
+              <!-- Request Limit-->
+              <div class="form-group col-md-6">
+                <label for="reqLimit">Limit</label>
+                <input type="text" class="form-control" id="reqLimit">
+              </div>
+
+              <!-- Request Offset-->
+              <div class="form-group col-md-6">
+                <label for="reqOffset">Offset</label>
+                <input type="text" class="form-control" id="reqOffset">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <!-- Request OrderBy-->
+              <div class="form-group col-md-6">
+                <div class="input-group">
+                  <input type="text" placeholder="Order By" aria-label="Order By" class="form-control">
+                  <select class="custom-select" id="inputGroupSelect01" >
+                    <option value="ASC">ASC</option>
+                    <option value="DESC">DESC</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon1">Add Order</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Request Attributes-->
+              <div class="form-group col-md-6">
+                <div class="input-group">
+                  <input type="text" placeholder="Attribute" aria-label="Order By" class="form-control">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon1">Add Attribute</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <!-- OrderBy display-->
+              <div class="form-group col-md-6">
+                <p class="text-center">No Order Bys added</p>
+                <!-- <label>Order By</label>
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">Column1 DESC</a>
+                  <a href="#" class="list-group-item list-group-item-action">Column2 ASC</a>
+                </div>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  Click on the item to remove
+                </small> -->
+              </div>
+              
+              <!-- Attributes display-->
+              <div class="form-group col-md-6">
+                <label>Attributes</label>
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">Column1</a>
+                  <a href="#" class="list-group-item list-group-item-action">Column2</a>
+                </div>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  Click on the item to remove
+                </small>
+              </div>
+            </div>
+            
+            <button class="btn btn-primary">Send</button>
+
+            <hr>
+            <div class="form-group">
+              <label>Request Sent</label>
+              <textarea class="form-control" id="reqSent" rows="10" readonly >Display the request sent</textarea>
+            </div>
+            <div class="form-group">
+              <label>Response</label>
+              <textarea class="form-control" id="reqSent" rows="10" readonly >Display the response recieved</textarea>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      </div>
+    </div> 
+  </div>
+
+  <!-- Custom API section -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Custom</h6>
+    </div>
+    <div class="card-body" ng-if="!hasCustomeizedApis">
+      <p class="text-center">No APIs found</p>
+    </div>
+    <div class="card-body" ng-if="hasCustomeizedApis" ng-repeat="customizedApi in customizedApis">
+      <h5>{{customizedApi.name}}</h5>
+      <p class="text-justify">{{customizedApi.description}}</p>
+      <div class="input-group mb-3" ng-repeat="customizedGetApi in customizedApi.get">
+        <div class="input-group-prepend">
+          <span class="input-group-text api-get-label" id="inputGroup-sizing-default">GET</span>
+        </div>
+        <input disabled type="text" value="{{customizedGetApi}}" class="form-control api-get-uri" aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div> 
+  </div>
+</div>

@@ -1,0 +1,31 @@
+{
+    "columns":[
+        {
+            "columnName":"PEER_ID",
+            "columnDataType":"UUID",
+            "isPrimaryKey":true
+        },
+        {
+            "columnName":"IP",
+            "columnDataType":"string"
+        },
+        {
+            "columnName":"PORT",
+            "columnDataType":"string"
+        },
+        {
+            "columnName":"DTE_ONLINE",
+            "columnDataType":"DATE"
+        },
+        {
+            "columnName":"CONNECTED_IPS",
+            "columnDataType":"string"
+        },
+        {
+            "columnName":"POINTER",
+            "columnDataType":"string"
+        }
+    ],
+    "timestamps":false,
+    "paranoid": true
+}
