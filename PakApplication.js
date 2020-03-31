@@ -436,7 +436,7 @@ const init = function(dbMgr, svcMgr, webMgr, appMessenger){
     });
 }
 
-const undeploy = function(dbMgr, svcMgr, webMgr){
+const undeploy = function(dbMgr, svcMgr, webMgr, appMessenger){
     //stop all socket connection
     Object.keys(authenticatedConn).forEach(function(socketKey){
         try{
@@ -452,6 +452,11 @@ const undeploy = function(dbMgr, svcMgr, webMgr){
         console.log("Messenger(Web Socket) closed.");
         appMessenger.deregisterSender();
     });
+
+    Object.keys(extReconnInt).forEach(function(pendingConnKey){
+        clearInterval(extReconnInt[pendingConnKey]);
+    })
+    
 }
 
 const PakManager = {
